@@ -1,0 +1,2659 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EVERM — To My Beloved</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400;1,700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --paper: #f8f7f2;
+      --ink: #303528;
+      --green: #515b39;
+      --line: #deded3;
+      --muted: #747b69;
+      --panel: #eae9e1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Noto Serif", Georgia, serif;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid #bc8250;
+      outline-offset: 4px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    header {
+      height: 85px;
+      padding: 0 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .logo {
+      padding: 0;
+      background: none;
+      font-size: 31px;
+      font-weight: 400;
+      letter-spacing: 4px;
+    }
+
+    .header-note {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    .cart-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px;
+      background: none;
+    }
+
+    #cart-count {
+      display: inline-grid;
+      place-items: center;
+      min-width: 24px;
+      height: 24px;
+      padding: 0 5px;
+      border-radius: 50%;
+      color: white;
+      background: var(--ink);
+      font-size: 11px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 660px;
+    }
+
+    .hero-copy {
+      min-width: 0;
+      padding: 80px 12%;
+      align-self: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 24px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      line-height: 1.8;
+    }
+
+    h1,
+    h2 {
+      font-weight: 400;
+    }
+
+    h1 {
+      margin: 0 0 30px;
+      font-size: clamp(56px, 6.5vw, 98px);
+      line-height: 1.12;
+      letter-spacing: -4px;
+    }
+
+    h2 {
+      margin: 0 0 20px;
+      font-size: clamp(30px, 3.8vw, 50px);
+      line-height: 1.3;
+      letter-spacing: -1px;
+    }
+
+    .intro {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 2;
+    }
+
+    .primary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      padding: 17px 23px;
+      border-radius: 4px;
+      background: var(--green);
+      color: white;
+      font-size: 14px;
+    }
+
+    .primary:hover:not(:disabled) {
+      background: #3d462c;
+    }
+
+    .hero .primary {
+      margin-top: 30px;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.9;
+    }
+
+    .hero-art {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+      padding: 30px;
+      background: #e9e7df;
+    }
+
+    .hero-art img {
+      display: block;
+      width: 100%;
+      max-width: 480px;
+      margin: auto;
+    }
+
+    .art-caption {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 20px;
+      font-size: 9px;
+      letter-spacing: 2px;
+      line-height: 1.9;
+    }
+
+    .choose-page {
+      padding: 60px 6%;
+      text-align: center;
+    }
+
+    .choose-page > p:not(.eyebrow) {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 13px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 900px;
+      margin: 40px auto 25px;
+    }
+
+    .product {
+      min-width: 0;
+      padding: 22px;
+      text-align: left;
+      background: #e8e6dc;
+      border: 1px solid transparent;
+      border-radius: 6px;
+    }
+
+    .product:last-child {
+      background: #e3e7df;
+    }
+
+    .product:hover {
+      border-color: var(--green);
+    }
+
+    .product img {
+      display: block;
+      width: 100%;
+      height: 260px;
+      margin-bottom: 20px;
+      object-fit: contain;
+    }
+
+    .product strong {
+      display: block;
+      padding-top: 18px;
+      border-top: 1px solid #cdd0c1;
+      font-size: 22px;
+      font-weight: 400;
+    }
+
+    .product p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .product .product-card-price {
+      color: var(--ink);
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .text-button {
+      padding: 10px 0;
+      background: none;
+      font-size: 12px;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+    }
+
+    .design-page {
+      padding: 40px 5%;
+    }
+
+    .design-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 25px;
+    }
+
+    .design-heading .eyebrow {
+      margin-bottom: 12px;
+    }
+
+    .design-heading h2 {
+      margin: 0;
+      font-size: 38px;
+    }
+
+    .studio {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr);
+      gap: 40px;
+    }
+
+    .preview-panel {
+      min-width: 0;
+      padding: 20px;
+      background: var(--panel);
+      border-radius: 6px;
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 10px;
+      line-height: 1.8;
+    }
+
+    .preview-header span:last-child {
+      color: var(--green);
+      text-align: right;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 560px;
+      aspect-ratio: 1;
+      margin: 18px auto;
+      overflow: hidden;
+      border-radius: 5px;
+    }
+
+    #shirt-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      touch-action: pan-y;
+    }
+
+    #shirt-canvas.editable {
+      touch-action: none;
+      cursor: grab;
+    }
+
+    #shirt-canvas.dragging {
+      cursor: grabbing;
+    }
+
+    #preview-status {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      align-content: center;
+      margin: 0;
+      padding: 25px;
+      text-align: center;
+      background: #eae9e1f2;
+      font-size: 12px;
+      line-height: 1.9;
+      overflow-wrap: anywhere;
+      pointer-events: none;
+    }
+
+    .view-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 10px 17px;
+      border: 1px solid #bec5b3;
+      border-radius: 30px;
+      background: transparent;
+      font-size: 11px;
+    }
+
+    .chip.active {
+      border-color: var(--ink);
+      background: var(--ink);
+      color: white;
+    }
+
+    .preview-tip {
+      margin-bottom: 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.9;
+    }
+
+    .customizer {
+      min-width: 0;
+      padding: 15px 0;
+    }
+
+    .customizer .eyebrow {
+      margin-bottom: 15px;
+    }
+
+    .customizer h3 {
+      margin: 0 0 12px;
+      font-size: 24px;
+      font-weight: 400;
+    }
+
+    #product-price {
+      margin: 14px 0;
+      font-size: 25px;
+      font-weight: 700;
+    }
+
+    .field {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .field-title {
+      display: block;
+      margin-bottom: 15px;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .sizes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .sizes button {
+      min-width: 44px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: transparent;
+      font-size: 13px;
+    }
+
+    .sizes .selected {
+      background: var(--ink);
+      color: white;
+    }
+
+    .upload-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 22px 12px;
+      border: 1px dashed #b3bca7;
+      border-radius: 5px;
+      background: transparent;
+      font-size: 13px;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    .upload-box > span:first-child {
+      font-size: 28px;
+    }
+
+    .upload-box small {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    #file-name {
+      font-size: 11px;
+      overflow-wrap: anywhere;
+    }
+
+    .slider {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin: 18px 0;
+      font-size: 12px;
+    }
+
+    .slider input {
+      min-width: 0;
+      width: 65%;
+      accent-color: var(--green);
+    }
+
+    .image-actions {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .full {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .message {
+      color: #945535;
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 25px 6%;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.9;
+    }
+
+    footer .text-button {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    dialog {
+      width: min(570px, calc(100% - 24px));
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 35px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    dialog::backdrop {
+      background: #20251bb8;
+      backdrop-filter: blur(4px);
+    }
+
+    dialog h2 {
+      padding-right: 15px;
+      font-size: 30px;
+    }
+
+    dialog p {
+      font-size: 12px;
+      line-height: 1.9;
+    }
+
+    .close {
+      position: absolute;
+      top: 8px;
+      right: 14px;
+      padding: 5px;
+      background: none;
+      font-size: 27px;
+    }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cart-item p {
+      flex: 1;
+      margin: 0;
+    }
+
+    .cart-item small,
+    .cart-item strong {
+      display: block;
+      margin-top: 6px;
+    }
+
+    .cart-item small {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .cart-item button {
+      background: none;
+      padding: 8px;
+      text-decoration: underline;
+      font-size: 11px;
+    }
+
+    .cart-total {
+      margin-top: 24px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    /* THANH TOÁN */
+    #checkout-dialog {
+      width: min(1080px, calc(100% - 24px));
+      padding: 40px;
+    }
+
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .checkout-section {
+      min-width: 0;
+    }
+
+    .checkout-section h3 {
+      margin: 5px 0 25px;
+      font-size: 21px;
+      font-weight: 400;
+    }
+
+    .checkout-field {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      margin-bottom: 20px;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .checkout-field input,
+    .checkout-field textarea {
+      width: 100%;
+      min-width: 0;
+      border: 1px solid #cfd2c5;
+      border-radius: 4px;
+      padding: 12px;
+      background: #fffefb;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    .checkout-field textarea {
+      resize: vertical;
+    }
+
+    .checkout-summary {
+      padding-left: 30px;
+      border-left: 1px solid var(--line);
+    }
+
+    .checkout-product {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .checkout-product:first-child {
+      padding-top: 0;
+    }
+
+    .checkout-product-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .checkout-product-title p {
+      margin: 0;
+    }
+
+    .checkout-product-title strong {
+      white-space: nowrap;
+      font-size: 12px;
+    }
+
+    .checkout-previews {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .checkout-previews figure {
+      flex: 1;
+      min-width: 0;
+      margin: 0;
+      text-align: center;
+    }
+
+    .checkout-previews canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: var(--panel);
+      border-radius: 5px;
+    }
+
+    .checkout-previews figcaption {
+      margin-top: 5px;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .checkout-totals {
+      padding: 15px 0;
+    }
+
+    .checkout-totals > p {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .checkout-grand-total {
+      padding-top: 15px;
+      border-top: 1px solid var(--line);
+      font-size: 17px !important;
+    }
+
+    .payment-options {
+      margin: 12px 0 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .payment-options legend {
+      margin-bottom: 14px;
+      font-size: 13px;
+    }
+
+    .payment-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      font-size: 12px;
+      line-height: 1.8;
+      cursor: pointer;
+    }
+
+    .payment-option:has(input:checked) {
+      border-color: var(--green);
+      background: #edf0e6;
+    }
+
+    .payment-option input {
+      appearance: none;
+      flex-shrink: 0;
+      display: grid;
+      place-content: center;
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      border: 1px solid #a7ae9b;
+      border-radius: 4px;
+      background: white;
+    }
+
+    .payment-option input:checked {
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    .payment-option input:checked::before {
+      content: "✓";
+      color: white;
+      font-size: 14px;
+    }
+
+    .bank-payment {
+      margin-top: 15px;
+      padding: 20px;
+      background: #efeee6;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    #shop-qr {
+      display: block;
+      width: 210px;
+      max-width: 100%;
+      height: auto;
+      margin: 15px auto;
+      padding: 10px;
+      background: white;
+      border-radius: 5px;
+    }
+
+    @media (min-width: 1600px) {
+      main {
+        max-width: 1600px;
+        margin: auto;
+      }
+    }
+
+    @media (max-width: 800px) {
+      header {
+        height: 72px;
+      }
+
+      .logo {
+        font-size: 25px;
+        letter-spacing: 3px;
+      }
+
+      .header-note {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: 0;
+      }
+
+      .hero-copy {
+        padding: 50px 8% 40px;
+      }
+
+      h1 {
+        font-size: clamp(48px, 12vw, 70px);
+        letter-spacing: -2px;
+      }
+
+      .hero-art {
+        padding: 25px;
+      }
+
+      .hero-art img {
+        max-width: 350px;
+      }
+
+      .choose-page {
+        padding: 40px 5%;
+      }
+
+      .products {
+        gap: 12px;
+      }
+
+      .product {
+        padding: 12px;
+      }
+
+      .product img {
+        height: 160px;
+      }
+
+      .product strong {
+        font-size: 17px;
+      }
+
+      .product p {
+        font-size: 10px;
+      }
+
+      .product .product-card-price {
+        font-size: 14px;
+      }
+
+      .design-page {
+        padding: 30px 4%;
+      }
+
+      .design-heading {
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .design-heading h2 {
+        font-size: 28px;
+      }
+
+      .design-heading .text-button {
+        white-space: nowrap;
+        font-size: 10px;
+      }
+
+      .studio,
+      .checkout-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .preview-panel {
+        padding: 15px;
+      }
+
+      .customizer {
+        padding: 20px 4%;
+      }
+
+      dialog {
+        padding: 30px 22px;
+      }
+
+      #checkout-dialog {
+        padding: 30px 20px;
+      }
+
+      .checkout-summary {
+        padding-left: 0;
+        padding-top: 25px;
+        border-left: 0;
+        border-top: 1px solid var(--line);
+      }
+    }
+    .size-guide {
+  margin-top: 18px;
+}
+
+.size-guide summary {
+  width: fit-content;
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.size-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 15px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.size-table {
+  width: 100%;
+  min-width: 590px;
+  border-collapse: collapse;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.size-table caption {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  background: #e7e9df;
+}
+
+.size-table th,
+.size-table td {
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.size-table thead {
+  background: var(--ink);
+  color: white;
+}
+
+.size-table tbody tr:nth-child(even) {
+  background: #eeeee6;
+}
+
+.size-table tbody tr:last-child th,
+.size-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.size-table tbody th {
+  font-weight: 700;
+}
+@media (max-width: 800px) {
+  .slider:has(#image-scale) {
+    display: none;
+  }
+}
+@media (max-width: 800px) {
+  #home {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #home .hero-art {
+    order: 0;
+    width: 100%;
+  }
+
+  #home .hero-copy {
+    order: 1;
+    width: 100%;
+  }
+}
+.primary {
+  justify-content: center;
+  gap: 0;
+}
+
+/* Ẩn các span trang trí còn trống sau khi xóa mũi tên */
+.primary span[aria-hidden="true"] {
+  display: none;
+}
+  </style>
+</head>
+
+<body>
+  <header>
+    <button id="logo" class="logo" aria-label="Về trang đầu">
+      EVERM
+    </button>
+
+    <span class="header-note">
+      MADE BY YOU. WORN WITH LOVE.
+    </span>
+
+    <button id="cart-button"
+            class="cart-button"
+            aria-label="Mở giỏ hàng">
+      <svg width="27" height="27"
+           viewBox="0 0 24 24"
+           fill="none"
+           stroke="currentColor"
+           stroke-width="1.6"
+           stroke-linecap="round"
+           stroke-linejoin="round"
+           aria-hidden="true">
+        <path d="M8 9 12 3 16 9"/>
+        <path d="M3 9h18l-2 11H5L3 9Z"/>
+        <path d="M9 13v3M15 13v3"/>
+      </svg>
+      <span id="cart-count">0</span>
+    </button>
+  </header>
+
+  <main>
+    <section id="home" class="page hero">
+      <div class="hero-copy">
+        <p class="eyebrow">A LITTLE LOVE, A LOT OF YOU</p>
+
+        <h1>TO MY<br><em>BELOVED.</em></h1>
+
+        <p class="intro">
+          Một chiếc áo. Một câu chuyện.<br>
+          Để những điều bạn yêu được mặc lên mỗi ngày.
+        </p>
+
+        <button id="start-button" class="primary">
+          Bắt đầu thiết kế <span aria-hidden="true"></span>
+        </button>
+
+        <p class="small">
+          Thiết kế của bạn · Dấu ấn của riêng bạn
+        </p>
+      </div>
+
+      <div class="hero-art">
+        <p class="eyebrow">THE EVERYDAY CANVAS / 01</p>
+
+        <img src="images/phong-truoc.png"
+             alt="Áo phông trắng EVERM">
+
+        <div class="art-caption">
+          <span>YOUR STORY.<br>YOUR FAVORITE TEE.</span>
+          <span>MADE WITH ♡</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="choose" class="page choose-page hidden">
+      <p class="eyebrow">01 / CHỌN CHIẾC ÁO CỦA BẠN</p>
+
+      <h2>Mặc chất riêng,<br><em>in dấu riêng.</em></h2>
+
+      <p>Bắt đầu với một chiếc áo trắng. Phần còn lại là bạn.</p>
+
+      <div class="products">
+        <button class="product" data-type="short">
+          <img src="images/phong-truoc.png" alt="Áo phông trắng">
+          <strong>Áo phông </strong>
+          <p>Thoải mái cho mọi ngày</p>
+          <p class="product-card-price">259.000 ₫</p>
+        </button>
+
+        <button class="product" data-type="long">
+          <img src="images/dai-truoc.png" alt="Áo dài tay trắng">
+          <strong>Áo dài tay </strong>
+          <p>Ấm áp và đầy cá tính</p>
+          <p class="product-card-price">279.000 ₫</p>
+        </button>
+      </div>
+
+      <p class="small">In cả hai mặt: cộng thêm 40.000 ₫/áo.</p>
+
+      <button id="home-button" class="text-button">
+         Về trang đầu
+      </button>
+    </section>
+
+    <section id="design" class="page design-page hidden">
+      <div class="design-heading">
+        <div>
+          <p class="eyebrow">02 / MAKE IT YOURS</p>
+          <h2>Thiết kế của <em>riêng bạn.</em></h2>
+        </div>
+
+        <button id="change-type" class="text-button">
+          ← Đổi kiểu áo
+        </button>
+      </div>
+
+      <div class="studio">
+        <div class="preview-panel">
+          <div class="preview-header">
+            <span id="type-label">Áo phông / Trắng</span>
+            <span>● THIẾT KẾ ÁO</span>
+          </div>
+
+          <div class="canvas-wrap">
+            <canvas id="shirt-canvas"
+                    width="1000"
+                    height="1000"
+                    role="img"
+                    aria-label="Bản xem trước thiết kế áo"></canvas>
+
+            <p id="preview-status" role="status">
+              Đang tải ảnh áo…
+            </p>
+          </div>
+
+          <div class="view-buttons">
+            <button id="front-button"
+                    class="chip active"
+                    aria-pressed="true">
+              Mặt trước
+            </button>
+
+            <button id="back-button"
+                    class="chip"
+                    aria-pressed="false">
+              Mặt sau
+            </button>
+
+            <button id="retry-image" class="chip hidden">
+              Tải lại ảnh
+            </button>
+          </div>
+
+    
+        </div>
+
+        <aside class="customizer">
+          <p class="eyebrow">YOUR PERSONAL CANVAS</p>
+          <h3 id="product-title">Áo phông của bạn</h3>
+          <p id="product-price">259.000 ₫</p>
+
+          <p id="price-note" class="small">
+            In cả hai mặt: phụ thu 40.000 ₫/áo.
+          </p>
+
+          <div class="field">
+            <span class="field-title">01. Chọn size</span>
+
+            <div id="sizes" class="sizes"></div>
+
+<details class="size-guide">
+  <summary>Xem bảng size</summary>
+
+  <div class="size-table-scroll"
+       tabindex="0"
+       role="region"
+       aria-label="Bảng kích thước áo">
+    <table class="size-table">
+      <caption id="size-table-caption"></caption>
+      <thead id="size-table-head"></thead>
+      <tbody id="size-table-body"></tbody>
+    </table>
+  </div>
+</details>
+          </div>
+
+          <div class="field">
+            <span class="field-title">
+              02. Thêm hình ảnh
+              <span id="side-label">/ Mặt trước</span>
+            </span>
+
+            <button id="upload-button" class="upload-box">
+              <span aria-hidden="true">＋</span>
+              <span>Tải lên điều bạn yêu</span>
+              <small>PNG, JPG, WEBP · tối đa 10 MB</small>
+            </button>
+
+            <input id="upload"
+                   type="file"
+                   accept="image/png,image/jpeg,image/webp"
+                   hidden>
+
+            <div id="image-settings" class="hidden">
+              <p id="file-name"></p>
+
+              <label class="slider">
+                Ngang
+                <input id="position-x"
+                       type="range"
+                       min="-100"
+                       max="100"
+                       step="1"
+                       value="0">
+              </label>
+
+              <label class="slider">
+                Dọc
+                <input id="position-y"
+                       type="range"
+                       min="-100"
+                       max="100"
+                       step="1"
+                       value="0">
+              </label>
+
+              <label class="slider">
+                Kích thước
+                <input id="image-scale"
+                       type="range"
+                       min="5"
+                       max="250"
+                       step="1"
+                       value="70">
+              </label>
+
+              <div class="image-actions">
+                <button id="center-image" class="text-button">
+                  Đưa về giữa
+                </button>
+
+                <button id="remove-image" class="text-button">
+                  Xóa ảnh mặt này
+                </button>
+              </div>
+            </div>
+
+            <p class="small">
+              Đặt hình ở thân, tay hoặc cổ áo.
+              Phần nằm ngoài đường viền áo sẽ tự ẩn.
+            </p>
+          </div>
+
+          <p id="feedback" class="message" role="status"></p>
+
+          <button id="add-cart" class="primary full" disabled>
+            Thêm vào giỏ <span aria-hidden="true"></span>
+          </button>
+
+          <button id="download-preview"
+                  class="text-button full"
+                  disabled>
+            Tải ảnh thiết kế mặt đang xem 
+          </button>
+
+          <p class="small">
+            Ảnh được xử lý trên thiết bị.
+            Giỏ hàng lưu trong trình duyệt hiện tại.
+          </p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>EVERM — Wear what you love.</span>
+  </footer>
+
+  <!-- THÔNG TIN SHOP -->
+
+
+  <!-- GIỎ HÀNG -->
+  <dialog id="cart-dialog">
+    <button type="button" class="close" aria-label="Đóng">×</button>
+
+    <p class="eyebrow">YOUR LITTLE COLLECTION</p>
+    <h2>Giỏ hàng của bạn</h2>
+
+    <div id="cart-items"></div>
+    <p id="cart-message" class="message" role="status"></p>
+
+    <button id="checkout-button" class="primary full" disabled>
+      Tiến hành thanh toán <span aria-hidden="true"></span>
+    </button>
+
+    <button id="export-button" class="text-button full" disabled>
+      Tải các thiết kế JSON ↓
+    </button>
+  </dialog>
+
+  <!-- THANH TOÁN: NẰM NGOÀI SCRIPT -->
+  <dialog id="checkout-dialog">
+    <button type="button" class="close" aria-label="Đóng">×</button>
+
+    <p class="eyebrow">EVERM / CHECKOUT</p>
+    <h2>Thanh toán</h2>
+
+    <form id="checkout-form">
+      <div class="checkout-grid">
+        <section class="checkout-section">
+          <h3>Thông tin thanh toán</h3>
+
+          <label class="checkout-field" for="customer-name">
+            Họ và tên
+            <input id="customer-name"
+                   name="fullName"
+                   type="text"
+                   autocomplete="name"
+                   maxlength="120"
+                   required>
+          </label>
+
+          <label class="checkout-field" for="customer-phone">
+            Số điện thoại
+            <input id="customer-phone"
+                   name="phone"
+                   type="tel"
+                   autocomplete="tel"
+                   inputmode="tel"
+                   maxlength="25"
+                   required>
+          </label>
+
+          <label class="checkout-field" for="customer-email">
+            Email nhận thông báo đơn hàng
+            <input id="customer-email"
+                   name="email"
+                   type="email"
+                   autocomplete="email"
+                   maxlength="254"
+                   required>
+          </label>
+
+          <label class="checkout-field" for="customer-address">
+            Địa chỉ chi tiết
+            <textarea id="customer-address"
+                      name="address"
+                      autocomplete="street-address"
+                      rows="4"
+                      maxlength="600"
+                      placeholder="Số nhà, đường, phường/xã, tỉnh/thành phố"
+                      required></textarea>
+          </label>
+
+          <p class="small">
+            Email được ghi trong tệp đơn hàng.
+            Chức năng gửi thông báo email chưa được kết nối.
+          </p>
+        </section>
+
+        <section class="checkout-section checkout-summary">
+          <h3>Thông tin đơn hàng</h3>
+
+          <div id="checkout-items"></div>
+
+          <div class="checkout-totals">
+            <p>
+              <span>Tiền áo</span>
+              <strong id="checkout-subtotal">0 ₫</strong>
+            </p>
+
+            <p>
+              <span>Phí vận chuyển</span>
+              <strong id="checkout-shipping">30.000 ₫</strong>
+            </p>
+
+            <p class="checkout-grand-total">
+              <span>Tổng thanh toán</span>
+              <strong id="checkout-total">0 ₫</strong>
+            </p>
+          </div>
+
+          <fieldset class="payment-options">
+            <legend>Phương thức thanh toán</legend>
+
+            <label class="payment-option">
+              <input type="radio"
+                     name="paymentMethod"
+                     value="cod"
+                     checked
+                     required>
+              <span>Thanh toán khi nhận hàng — COD</span>
+            </label>
+
+            <label class="payment-option">
+              <input type="radio"
+                     name="paymentMethod"
+                     value="bank">
+              <span>Chuyển khoản ngân hàng</span>
+            </label>
+          </fieldset>
+
+          <div id="bank-payment" class="bank-payment hidden">
+            <p>Quét mã QR của EVERM để chuyển khoản</p>
+
+            <img id="shop-qr"
+                 class="hidden"
+                 alt="Mã QR ngân hàng của EVERM">
+
+            <p id="qr-status" class="message" role="status"></p>
+
+            <p>
+              Số tiền:
+              <strong id="bank-amount">0 ₫</strong>
+            </p>
+
+            <p class="small">
+              Kiểm tra đúng tài khoản người nhận.
+              Nếu ngân hàng không điền sẵn số tiền,
+              hãy nhập đúng tổng thanh toán phía trên.
+              Website chưa tự xác nhận giao dịch.
+            </p>
+          </div>
+
+          <p id="checkout-message" class="message" role="status"></p>
+
+          <button id="save-order" type="submit" class="primary full">
+            Thanh toán
+          </button>
+        </section>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- CHỈ JAVASCRIPT BÊN TRONG SCRIPT -->
+   <dialog id="success-dialog">
+  <button type="button" class="close" aria-label="Đóng">×</button>
+
+  <div style="text-align: center; padding: 20px 0;">
+    <div style="font-size: 48px; color: #515b39;">✓</div>
+
+    <h2 style="padding: 0; margin-top: 15px;">
+      Thanh toán thành công
+    </h2>
+
+    <p>Cảm ơn bạn đã lựa chọn EVERM.</p>
+
+    <button id="continue-shopping"
+            type="button"
+            class="primary full">
+      Tiếp tục mua sắm
+    </button>
+  </div>
+</dialog>
+  <script>
+    const $ = id => document.getElementById(id);
+
+    const SHIPPING_FEE = 30000;
+    const CART_KEY = "everm-photo-cart-v1";
+
+    const shirtPaths = {
+      short: {
+        front: "images/phong-truoc.png",
+        back: "images/phong-sau.png"
+      },
+      long: {
+        front: "images/dai-truoc.png",
+        back: "images/dai-sau.png"
+      }
+    };
+
+    const state = {
+      type: "short",
+      size: "M",
+      side: "front",
+      images: {
+        front: null,
+        back: null
+      }
+    };
+
+    let cart = [];
+    let checkoutCart = [];
+    let uploadPending = false;
+    let uploadVersion = 0;
+    let previewVersion = 0;
+    let previewReady = false;
+    let drag = null;
+
+    const canvas = $("shirt-canvas");
+    const assetCache = new Map();
+    const canvasVersions = new WeakMap();
+
+    function productName(type) {
+      return type === "long" ? "Áo dài tay" : "Áo phông";
+    }
+
+    function sideName(side) {
+      return side === "front" ? "Mặt trước" : "Mặt sau";
+    }
+
+    function productPrice(type) {
+      return type === "long" ? 279000 : 259000;
+    }
+
+    function extraPrintPrice(images) {
+      return images?.front && images?.back ? 40000 : 0;
+    }
+
+    function designPrice(type, images) {
+      return productPrice(type) + extraPrintPrice(images);
+    }
+
+    function formatPrice(amount) {
+      return new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+        maximumFractionDigits: 0
+      }).format(amount);
+    }
+
+    function subtotal(items) {
+      return items.reduce(
+        (sum, item) => sum + designPrice(item.type, item.images),
+        0
+      );
+    }
+
+    function clone(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function loadImage(src) {
+      if (assetCache.has(src)) {
+        return assetCache.get(src);
+      }
+
+      const promise = new Promise((resolve, reject) => {
+        const image = new Image();
+
+        const timer = setTimeout(() => {
+          image.onload = null;
+          image.onerror = null;
+          reject(new Error("Quá thời gian tải ảnh."));
+        }, 12000);
+
+        image.onload = () => {
+          clearTimeout(timer);
+          resolve(image);
+        };
+
+        image.onerror = () => {
+          clearTimeout(timer);
+          reject(new Error("Không tìm thấy hoặc không đọc được ảnh."));
+        };
+
+        image.src = src;
+      }).catch(error => {
+        assetCache.delete(src);
+        throw error;
+      });
+
+      assetCache.set(src, promise);
+      return promise;
+    }
+
+    function releaseUnusedPrints() {
+      const active = new Set(
+        Object.values(state.images)
+          .filter(Boolean)
+          .map(image => image.url)
+      );
+
+      for (const src of assetCache.keys()) {
+        if (src.startsWith("data:") && !active.has(src)) {
+          assetCache.delete(src);
+        }
+      }
+    }
+
+    /*
+      Vẽ áo và hình in lên canvas.
+      Dùng chung cho màn hình thiết kế và bản xem trước thanh toán.
+    */
+    async function renderDesign(target, type, side, images) {
+      const version = (canvasVersions.get(target) || 0) + 1;
+      canvasVersions.set(target, version);
+
+      const design = images[side] ? { ...images[side] } : null;
+
+      const [photo, print] = await Promise.all([
+        loadImage(shirtPaths[type][side]),
+        design ? loadImage(design.url) : Promise.resolve(null)
+      ]);
+
+      if (canvasVersions.get(target) !== version) return false;
+
+      const size = target.width;
+
+      const output = document.createElement("canvas");
+      output.width = size;
+      output.height = size;
+
+      const ctx = output.getContext("2d");
+
+      const ratio = Math.min(
+        size / photo.naturalWidth,
+        size / photo.naturalHeight
+      );
+
+      const width = photo.naturalWidth * ratio;
+      const height = photo.naturalHeight * ratio;
+      const x = (size - width) / 2;
+      const y = (size - height) / 2;
+
+      ctx.drawImage(photo, x, y, width, height);
+
+      if (design && print) {
+        const layer = document.createElement("canvas");
+        layer.width = size;
+        layer.height = size;
+
+        const layerCtx = layer.getContext("2d");
+        const factor = size / 1000;
+
+        const printWidth = 320 * design.scale / 100 * factor;
+        const printHeight =
+          printWidth * print.naturalHeight / print.naturalWidth;
+
+        const printX =
+          (500 + design.x * 5) * factor - printWidth / 2;
+
+        const printY =
+          (500 + design.y * 5) * factor - printHeight / 2;
+
+        layerCtx.drawImage(
+          print,
+          printX,
+          printY,
+          printWidth,
+          printHeight
+        );
+
+        // Giới hạn hình in theo độ trong suốt của ảnh áo.
+        layerCtx.globalCompositeOperation = "destination-in";
+        layerCtx.drawImage(photo, x, y, width, height);
+
+        ctx.drawImage(layer, 0, 0);
+      }
+
+      const targetCtx = target.getContext("2d");
+      targetCtx.clearRect(0, 0, size, size);
+      targetCtx.drawImage(output, 0, 0);
+
+      return true;
+    }
+
+    function updatePrice() {
+      $("product-price").textContent =
+        formatPrice(designPrice(state.type, state.images));
+
+      $("price-note").textContent = extraPrintPrice(state.images)
+        ? "Đã gồm 40.000 ₫ phụ thu in cả hai mặt."
+        : "In cả hai mặt: phụ thu 40.000 ₫/áo.";
+    }
+
+    function updateButtons() {
+      const ready = previewReady && !uploadPending;
+
+      $("add-cart").disabled = !ready;
+      $("download-preview").disabled = !ready;
+
+      updatePrice();
+    }
+
+    function syncControls() {
+      renderSizes();
+      const image = state.images[state.side];
+
+      $("image-settings").classList.toggle("hidden", !image);
+      $("file-name").textContent = image ? image.name : "";
+
+      $("position-x").value = image ? image.x : 0;
+      $("position-y").value = image ? image.y : 0;
+      $("image-scale").value = image ? image.scale : 70;
+
+      canvas.classList.toggle("editable", !!image);
+
+      $("product-title").textContent =
+        productName(state.type) + " của bạn";
+
+      $("type-label").textContent =
+        productName(state.type) + " / Trắng";
+
+      $("side-label").textContent = "/ " + sideName(state.side);
+
+      ["front", "back"].forEach(side => {
+        const selected = state.side === side;
+        const button = $(side + "-button");
+
+        button.classList.toggle("active", selected);
+        button.setAttribute("aria-pressed", String(selected));
+      });
+
+      canvas.setAttribute(
+        "aria-label",
+        productName(state.type) + " — " + sideName(state.side)
+      );
+
+      updatePrice();
+    }
+
+    async function refreshPreview(showLoading = false) {
+      const version = ++previewVersion;
+      previewReady = false;
+      updateButtons();
+
+      if (showLoading) {
+        $("preview-status").classList.remove("hidden");
+        $("preview-status").textContent = "Đang tải ảnh áo…";
+        $("retry-image").classList.add("hidden");
+
+        canvas.getContext("2d").clearRect(0, 0, 1000, 1000);
+      }
+
+      try {
+        const rendered = await renderDesign(
+          canvas,
+          state.type,
+          state.side,
+          state.images
+        );
+
+        if (version !== previewVersion || !rendered) return;
+
+        previewReady = true;
+        $("preview-status").classList.add("hidden");
+        $("retry-image").classList.add("hidden");
+
+        updateButtons();
+      } catch (error) {
+        if (version !== previewVersion) return;
+
+        $("preview-status").classList.remove("hidden");
+        $("preview-status").textContent =
+          error.message + " Kiểm tra tệp " +
+          shirtPaths[state.type][state.side] +
+          " và ảnh tải lên, rồi bấm Tải lại ảnh.";
+
+        $("retry-image").classList.remove("hidden");
+        updateButtons();
+      }
+    }
+
+    function showPage(id) {
+      stopDrag();
+
+      document.querySelectorAll(".page").forEach(page => {
+        page.classList.toggle("hidden", page.id !== id);
+      });
+
+      window.scrollTo(0, 0);
+    }
+
+    $("logo").onclick = () => showPage("home");
+    $("home-button").onclick = () => showPage("home");
+    $("start-button").onclick = () => showPage("choose");
+    $("change-type").onclick = () => showPage("choose");
+
+    document.querySelectorAll("[data-type]").forEach(button => {
+      button.onclick = () => {
+        state.type = button.dataset.type;
+        $("feedback").textContent = "";
+
+        showPage("design");
+        syncControls();
+        refreshPreview(true);
+      };
+    });
+
+    $("retry-image").onclick = () => refreshPreview(true);
+
+    // SIZE VÀ BẢNG KÍCH THƯỚC
+const sizeCharts = {
+  short: {
+    sizes: ["S", "M", "L", "XL"],
+
+    title: "Bảng size áo phông",
+
+    headers: [
+      "Size",
+      "Chiều cao",
+      "Cân nặng",
+      "Dài áo",
+      "Ngang áo",
+      "Dài tay"
+    ],
+
+    rows: [
+      ["S", "150–160 cm", "40–50 kg", "62 cm", "52 cm", "17 cm"],
+      ["M", "158–168 cm", "50–62 kg", "65 cm", "55 cm", "18 cm"],
+      ["L", "165–178 cm", "62–75 kg", "68 cm", "58 cm", "19 cm"],
+      ["XL", "172–185 cm", "75–90 kg", "70 cm", "60 cm", "20 cm"]
+    ]
+  },
+
+  long: {
+    sizes: ["M", "L", "XL"],
+
+    title: "Bảng size áo dài tay",
+
+    headers: [
+      "Size",
+      "Dài áo",
+      "Ngang áo",
+      "Rộng vai",
+      "Dài tay",
+      "Cân nặng",
+      "Chiều cao"
+    ],
+
+    rows: [
+      ["M", "62 cm", "57 cm", "17 cm", "52 cm", "42–64 kg", "150–169 cm"],
+      ["L", "65 cm", "60 cm", "18 cm", "53 cm", "65–75 kg", "170–179 cm"],
+      ["XL", "68 cm", "63 cm", "19 cm", "54 cm", "75–85 kg", "175–185 cm"]
+    ]
+  }
+};
+
+let displayedSizeChart = null;
+
+function renderSizes() {
+  const chart = sizeCharts[state.type];
+
+  // Nếu đang chọn S rồi chuyển sang áo dài tay,
+  // tự đổi về M vì áo dài tay không có S.
+  if (!chart.sizes.includes(state.size)) {
+    state.size = "M";
+  }
+
+  const container = $("sizes");
+
+  // Chỉ dựng lại bảng khi đổi loại áo.
+  if (displayedSizeChart !== state.type) {
+    container.replaceChildren();
+
+    chart.sizes.forEach(size => {
+      const button = document.createElement("button");
+
+      button.type = "button";
+      button.textContent = size;
+
+      button.onclick = () => {
+        state.size = size;
+        renderSizes();
+      };
+
+      container.append(button);
+    });
+
+    $("size-table-caption").textContent = chart.title;
+    $("size-table-head").replaceChildren();
+    $("size-table-body").replaceChildren();
+
+    const headingRow = document.createElement("tr");
+
+    chart.headers.forEach(title => {
+      const cell = document.createElement("th");
+      cell.scope = "col";
+      cell.textContent = title;
+      headingRow.append(cell);
+    });
+
+    $("size-table-head").append(headingRow);
+
+    chart.rows.forEach(row => {
+      const tableRow = document.createElement("tr");
+
+      row.forEach((value, index) => {
+        const cell = document.createElement(index === 0 ? "th" : "td");
+
+        if (index === 0) {
+          cell.scope = "row";
+        }
+
+        cell.textContent = value;
+        tableRow.append(cell);
+      });
+
+      $("size-table-body").append(tableRow);
+    });
+
+    displayedSizeChart = state.type;
+  }
+
+  container.querySelectorAll("button").forEach(button => {
+    const selected = button.textContent === state.size;
+
+    button.classList.toggle("selected", selected);
+    button.setAttribute("aria-pressed", String(selected));
+  });
+}
+    ["front", "back"].forEach(side => {
+      $(side + "-button").onclick = () => {
+        stopDrag();
+        state.side = side;
+
+        $("feedback").textContent = "";
+        syncControls();
+        refreshPreview(true);
+      };
+    });
+
+    // TẢI HÌNH IN
+    $("upload-button").onclick = () => $("upload").click();
+
+    $("upload").onchange = async event => {
+      const file = event.target.files[0];
+      event.target.value = "";
+
+      if (!file) return;
+
+      if (
+        !["image/png", "image/jpeg", "image/webp"].includes(file.type) ||
+        file.size > 10 * 1024 * 1024
+      ) {
+        $("feedback").textContent =
+          "Chọn ảnh PNG, JPG hoặc WEBP không quá 10 MB.";
+        return;
+      }
+
+      stopDrag();
+
+      const side = state.side;
+      const version = ++uploadVersion;
+
+      uploadPending = true;
+      $("feedback").textContent = "Đang xử lý ảnh…";
+      updateButtons();
+
+      let objectUrl;
+
+      try {
+        objectUrl = URL.createObjectURL(file);
+        const original = await loadImage(objectUrl);
+
+        const ratio = Math.min(
+          1,
+          1200 / Math.max(
+            original.naturalWidth,
+            original.naturalHeight
+          )
+        );
+
+        const buffer = document.createElement("canvas");
+        buffer.width = Math.max(
+          1,
+          Math.round(original.naturalWidth * ratio)
+        );
+        buffer.height = Math.max(
+          1,
+          Math.round(original.naturalHeight * ratio)
+        );
+
+        buffer.getContext("2d").drawImage(
+          original,
+          0,
+          0,
+          buffer.width,
+          buffer.height
+        );
+
+        const url = buffer.toDataURL("image/png");
+        await loadImage(url);
+
+        if (version !== uploadVersion) return;
+
+        state.images[side] = {
+          name: file.name,
+          url,
+          x: 0,
+          y: 0,
+          scale: 70
+        };
+
+        releaseUnusedPrints();
+
+        $("feedback").textContent =
+          "Đã thêm ảnh vào " + sideName(side).toLowerCase() + ".";
+
+        syncControls();
+        await refreshPreview();
+      } catch {
+        if (version === uploadVersion) {
+          $("feedback").textContent =
+            "Không đọc được ảnh. Vui lòng thử ảnh khác.";
+        }
+      } finally {
+        if (objectUrl) {
+          URL.revokeObjectURL(objectUrl);
+          assetCache.delete(objectUrl);
+        }
+
+        if (version === uploadVersion) {
+          uploadPending = false;
+          updateButtons();
+        }
+      }
+    };
+
+    // ĐIỀU CHỈNH HÌNH IN
+    [
+      ["position-x", "x"],
+      ["position-y", "y"],
+      ["image-scale", "scale"]
+    ].forEach(([id, property]) => {
+      $(id).oninput = () => {
+        const image = state.images[state.side];
+        if (!image) return;
+
+        image[property] = Number($(id).value);
+        refreshPreview();
+      };
+    });
+
+    $("center-image").onclick = () => {
+      const image = state.images[state.side];
+      if (!image) return;
+
+      image.x = 0;
+      image.y = 0;
+
+      syncControls();
+      refreshPreview();
+    };
+
+    $("remove-image").onclick = () => {
+      stopDrag();
+
+      uploadVersion++;
+      uploadPending = false;
+      state.images[state.side] = null;
+
+      releaseUnusedPrints();
+      $("feedback").textContent = "";
+
+      syncControls();
+      refreshPreview();
+    };
+
+    // KÉO HÌNH IN
+// KÉO VÀ PHÓNG TO / THU NHỎ HÌNH IN
+const activePointers = new Map();
+let imageGesture = null;
+
+function pointerPosition(event) {
+  const rect = canvas.getBoundingClientRect();
+
+  return {
+    x: (event.clientX - rect.left) * 1000 / rect.width,
+    y: (event.clientY - rect.top) * 1000 / rect.height
+  };
+}
+
+function gesturePosition() {
+  const points = [...activePointers.values()];
+
+  if (points.length >= 2) {
+    const first = points[0];
+    const second = points[1];
+
+    return {
+      x: (first.x + second.x) / 2,
+      y: (first.y + second.y) / 2,
+      distance: Math.hypot(
+        second.x - first.x,
+        second.y - first.y
+      )
+    };
+  }
+
+  return {
+    x: points[0].x,
+    y: points[0].y,
+    distance: 0
+  };
+}
+
+function beginImageGesture() {
+  const image = state.images[state.side];
+
+  if (!image || !activePointers.size) {
+    imageGesture = null;
+    return;
+  }
+
+  const position = gesturePosition();
+
+  imageGesture = {
+    side: state.side,
+    pointerX: position.x,
+    pointerY: position.y,
+    distance: position.distance,
+    centerX: 500 + image.x * 5,
+    centerY: 500 + image.y * 5,
+    scale: image.scale
+  };
+}
+
+canvas.addEventListener("pointerdown", event => {
+  if (event.pointerType === "mouse" && event.button !== 0) {
+    return;
+  }
+
+  const image = state.images[state.side];
+
+  if (!image || uploadPending) return;
+
+  // Cho ngón thứ hai tham gia ngay cả khi canvas đang vẽ lại.
+  if (!activePointers.size && !previewReady) return;
+
+  if (activePointers.size >= 2) return;
+
+  event.preventDefault();
+
+  activePointers.set(
+    event.pointerId,
+    pointerPosition(event)
+  );
+
+  canvas.setPointerCapture(event.pointerId);
+  canvas.classList.add("dragging");
+
+  beginImageGesture();
+});
+
+canvas.addEventListener("pointermove", event => {
+  if (!activePointers.has(event.pointerId)) return;
+
+  event.preventDefault();
+
+  activePointers.set(
+    event.pointerId,
+    pointerPosition(event)
+  );
+
+  if (!imageGesture) return;
+
+  const image = state.images[imageGesture.side];
+  if (!image) return;
+
+  const position = gesturePosition();
+
+  let scaleRatio = 1;
+
+  // Hai ngón: đổi kích thước theo khoảng cách giữa hai ngón.
+  if (
+    activePointers.size === 2 &&
+    imageGesture.distance > 0
+  ) {
+    const requestedScale =
+      imageGesture.scale *
+      position.distance /
+      imageGesture.distance;
+
+    // Giữ cùng giới hạn với thanh kích thước hiện tại.
+    const minScale = Number($("image-scale").min);
+    const maxScale = Number($("image-scale").max);
+
+    image.scale = clamp(
+      requestedScale,
+      minScale,
+      maxScale
+    );
+
+    scaleRatio = image.scale / imageGesture.scale;
+  }
+
+  // Phóng to quanh vị trí hai ngón tay.
+  // Một ngón thì chỉ di chuyển hình.
+  const centerX =
+    position.x +
+    (imageGesture.centerX - imageGesture.pointerX) *
+    scaleRatio;
+
+  const centerY =
+    position.y +
+    (imageGesture.centerY - imageGesture.pointerY) *
+    scaleRatio;
+
+  image.x = clamp((centerX - 500) / 5, -100, 100);
+  image.y = clamp((centerY - 500) / 5, -100, 100);
+
+  syncControls();
+  refreshPreview();
+});
+
+function finishPointer(event) {
+  if (!activePointers.has(event.pointerId)) return;
+
+  activePointers.delete(event.pointerId);
+
+  if (canvas.hasPointerCapture(event.pointerId)) {
+    canvas.releasePointerCapture(event.pointerId);
+  }
+
+  if (activePointers.size) {
+    // Nhấc một ngón lên: tiếp tục kéo bằng ngón còn lại.
+    beginImageGesture();
+  } else {
+    imageGesture = null;
+    canvas.classList.remove("dragging");
+  }
+}
+
+canvas.addEventListener("pointerup", finishPointer);
+canvas.addEventListener("pointercancel", finishPointer);
+canvas.addEventListener("lostpointercapture", finishPointer);
+
+// Giữ hàm này vì các phần chuyển trang / đổi mặt áo đang gọi nó.
+function stopDrag() {
+  const pointerIds = [...activePointers.keys()];
+
+  activePointers.clear();
+  imageGesture = null;
+  drag = null;
+
+  canvas.classList.remove("dragging");
+
+  pointerIds.forEach(pointerId => {
+    if (canvas.hasPointerCapture(pointerId)) {
+      canvas.releasePointerCapture(pointerId);
+    }
+  });
+}
+
+    // TẢI TỆP
+    function downloadBlob(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = filename;
+
+      document.body.append(link);
+      link.click();
+      link.remove();
+
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    $("download-preview").onclick = () => {
+      if (!previewReady || uploadPending) return;
+
+      const filename =
+        "EVERM-" + state.type + "-" + state.side + ".png";
+
+      try {
+        canvas.toBlob(blob => {
+          if (blob) {
+            downloadBlob(blob, filename);
+          } else {
+            $("feedback").textContent = "Không xuất được ảnh.";
+          }
+        }, "image/png");
+      } catch {
+        $("feedback").textContent =
+          "Hãy chạy website bằng Live Server để xuất ảnh.";
+      }
+    };
+
+    // GIỎ HÀNG
+    function validSavedImage(image) {
+      return image === null || (
+        image &&
+        typeof image.name === "string" &&
+        typeof image.url === "string" &&
+        image.url.startsWith("data:image/png;base64,") &&
+        Number.isFinite(image.x) &&
+        image.x >= -100 && image.x <= 100 &&
+        Number.isFinite(image.y) &&
+        image.y >= -100 && image.y <= 100 &&
+        Number.isFinite(image.scale) &&
+        image.scale >= 5 && image.scale <= 250
+      );
+    }
+
+    try {
+      const saved = JSON.parse(
+        localStorage.getItem(CART_KEY) || "[]"
+      );
+
+      if (Array.isArray(saved)) {
+        cart = saved.filter(item =>
+          item &&
+          typeof item.id === "string" &&
+          ["short", "long"].includes(item.type) &&
+          ["S", "M", "L", "XL", "2XL"].includes(item.size) &&
+          item.images &&
+          validSavedImage(item.images.front) &&
+          validSavedImage(item.images.back)
+        );
+      }
+    } catch {
+      cart = [];
+    }
+
+    function saveCart(next) {
+      localStorage.setItem(CART_KEY, JSON.stringify(next));
+      cart = next;
+      renderCart();
+    }
+
+    function pricedItems(items) {
+      return items.map(item => ({
+        ...item,
+        quantity: 1,
+        basePrice: productPrice(item.type),
+        twoSideSurcharge: extraPrintPrice(item.images),
+        unitPrice: designPrice(item.type, item.images)
+      }));
+    }
+
+    function renderCart() {
+      $("cart-count").textContent = cart.length;
+
+      $("cart-button").setAttribute(
+        "aria-label",
+        "Mở giỏ hàng, " + cart.length + " áo"
+      );
+
+      $("cart-items").replaceChildren();
+
+      $("export-button").disabled = !cart.length;
+      $("checkout-button").disabled = !cart.length;
+
+      if (!cart.length) {
+        const empty = document.createElement("p");
+        empty.textContent = "Giỏ hàng đang trống.";
+        $("cart-items").append(empty);
+        return;
+      }
+
+      cart.forEach(item => {
+        const row = document.createElement("div");
+        row.className = "cart-item";
+
+        const text = document.createElement("p");
+        text.textContent =
+          productName(item.type) + " · Size " + item.size;
+
+        const details = document.createElement("small");
+
+        const sides = ["front", "back"]
+          .filter(side => item.images[side])
+          .map(sideName);
+
+        details.textContent = sides.length
+          ? "Có hình in: " + sides.join(", ")
+          : "Áo trắng, chưa thêm hình in";
+
+        text.append(details);
+
+        if (extraPrintPrice(item.images)) {
+          const extra = document.createElement("small");
+          extra.textContent =
+            "Đã gồm 40.000 ₫ phụ thu in hai mặt.";
+          text.append(extra);
+        }
+
+        const price = document.createElement("strong");
+        price.textContent = formatPrice(
+          designPrice(item.type, item.images)
+        );
+        text.append(price);
+
+        const remove = document.createElement("button");
+        remove.textContent = "Xóa";
+
+        remove.onclick = () => {
+          try {
+            saveCart(cart.filter(product => product.id !== item.id));
+            $("cart-message").textContent = "";
+          } catch {
+            $("cart-message").textContent =
+              "Không cập nhật được bộ nhớ trình duyệt.";
+          }
+        };
+
+        row.append(text, remove);
+        $("cart-items").append(row);
+      });
+
+      const total = document.createElement("p");
+      total.className = "cart-total";
+      total.textContent =
+        "Tiền áo: " + formatPrice(subtotal(cart));
+
+      const note = document.createElement("p");
+      note.className = "small";
+      note.textContent =
+        "Phí vận chuyển 30.000 ₫ sẽ được cộng khi thanh toán.";
+
+      $("cart-items").append(total, note);
+    }
+
+    $("add-cart").onclick = () => {
+      if (!previewReady || uploadPending) return;
+
+      const item = {
+        id: Date.now().toString(36) +
+            Math.random().toString(36).slice(2),
+        type: state.type,
+        size: state.size,
+        images: clone(state.images),
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        saveCart([...cart, item]);
+
+        $("feedback").textContent = "Đã thêm thiết kế vào giỏ.";
+        $("cart-message").textContent = "";
+        $("cart-dialog").showModal();
+      } catch {
+        $("feedback").textContent =
+          "Không lưu được giỏ hàng. Bộ nhớ có thể đã đầy hoặc bị chặn. " +
+          "Hãy xuất thiết kế rồi xóa bớt khỏi giỏ.";
+      }
+    };
+
+    $("export-button").onclick = () => {
+      if (!cart.length) return;
+
+      const data = {
+        shop: "EVERM",
+        version: 1,
+        currency: "VND",
+        subtotal: subtotal(cart),
+        shirtImages: shirtPaths,
+        items: pricedItems(cart)
+      };
+
+      downloadBlob(
+        new Blob(
+          [JSON.stringify(data, null, 2)],
+          { type: "application/json" }
+        ),
+        "EVERM-thiet-ke.json"
+      );
+    };
+
+    // THANH TOÁN
+    let qrAvailable = false;
+    let qrLoading = false;
+
+    function updatePaymentMethod() {
+      const method = document.querySelector(
+        '#checkout-form input[name="paymentMethod"]:checked'
+      ).value;
+
+      $("bank-payment").classList.toggle(
+        "hidden",
+        method !== "bank"
+      );
+
+      if (method === "bank") loadShopQR();
+    }
+
+    async function loadShopQR() {
+      if (qrAvailable || qrLoading) return;
+
+      qrLoading = true;
+      $("qr-status").textContent = "Đang tải QR của shop…";
+
+      try {
+        const image = await loadImage("images/qr-shop.png");
+
+        $("shop-qr").src = image.src;
+        $("shop-qr").classList.remove("hidden");
+
+        qrAvailable = true;
+        $("qr-status").textContent = "";
+      } catch {
+        qrAvailable = false;
+        $("shop-qr").classList.add("hidden");
+
+        $("qr-status").textContent =
+          "Chưa tải được QR. Kiểm tra images/qr-shop.png. " +
+          "Bạn có thể chọn COD.";
+      } finally {
+        qrLoading = false;
+      }
+    }
+
+    function renderCheckout() {
+      const container = $("checkout-items");
+      container.replaceChildren();
+
+      checkoutCart.forEach(item => {
+        const product = document.createElement("article");
+        product.className = "checkout-product";
+
+        const heading = document.createElement("div");
+        heading.className = "checkout-product-title";
+
+        const title = document.createElement("p");
+        title.textContent =
+          productName(item.type) + " · Size " + item.size;
+
+        const price = document.createElement("strong");
+        price.textContent = formatPrice(
+          designPrice(item.type, item.images)
+        );
+
+        heading.append(title, price);
+        product.append(heading);
+
+        if (extraPrintPrice(item.images)) {
+          const extra = document.createElement("p");
+          extra.className = "small";
+          extra.textContent =
+            "Đã gồm 40.000 ₫ phụ thu in hai mặt.";
+          product.append(extra);
+        }
+
+        const previews = document.createElement("div");
+        previews.className = "checkout-previews";
+
+        ["front", "back"].forEach(side => {
+          const figure = document.createElement("figure");
+          const preview = document.createElement("canvas");
+
+          preview.width = 400;
+          preview.height = 400;
+
+          preview.setAttribute("role", "img");
+          preview.setAttribute(
+            "aria-label",
+            productName(item.type) + " — " + sideName(side)
+          );
+
+          const caption = document.createElement("figcaption");
+          caption.textContent = sideName(side);
+
+          figure.append(preview, caption);
+          previews.append(figure);
+
+          renderDesign(
+            preview,
+            item.type,
+            side,
+            item.images
+          ).catch(() => {
+            caption.textContent =
+              sideName(side) + " — không tải được ảnh";
+          });
+        });
+
+        product.append(previews);
+        container.append(product);
+      });
+
+      const amount = subtotal(checkoutCart);
+      const total = amount + SHIPPING_FEE;
+
+      $("checkout-subtotal").textContent = formatPrice(amount);
+      $("checkout-shipping").textContent = formatPrice(SHIPPING_FEE);
+      $("checkout-total").textContent = formatPrice(total);
+      $("bank-amount").textContent = formatPrice(total);
+    }
+
+    $("checkout-button").onclick = () => {
+      if (!cart.length) return;
+
+      checkoutCart = clone(cart);
+      $("checkout-message").textContent = "";
+
+      renderCheckout();
+      updatePaymentMethod();
+
+      $("cart-dialog").close();
+      $("checkout-dialog").showModal();
+    };
+
+    document.querySelectorAll(
+      '#checkout-form input[name="paymentMethod"]'
+    ).forEach(input => {
+      input.addEventListener("change", updatePaymentMethod);
+    });
+
+    const customerFields = [
+      "customer-name",
+      "customer-phone",
+      "customer-email",
+      "customer-address"
+    ];
+
+    customerFields.forEach(id => {
+      $(id).addEventListener("input", () => {
+        $(id).setCustomValidity("");
+      });
+    });
+// THANH TOÁN MÔ PHỎNG
+$("checkout-form").addEventListener("submit", event => {
+  event.preventDefault();
+
+  if (!checkoutCart.length) return;
+
+  customerFields.forEach(id => {
+    const input = $(id);
+
+    input.value = input.value.trim();
+    input.setCustomValidity(
+      input.value ? "" : "Vui lòng điền thông tin này."
+    );
+  });
+
+  const phone = $("customer-phone");
+  const digits = phone.value.replace(/\D/g, "");
+
+  if (
+    phone.value &&
+    (
+      !/^[+0-9() .-]+$/.test(phone.value) ||
+      digits.length < 9 ||
+      digits.length > 15
+    )
+  ) {
+    phone.setCustomValidity(
+      "Vui lòng nhập số điện thoại hợp lệ."
+    );
+  }
+
+  if (!event.currentTarget.reportValidity()) return;
+
+  // Không tạo giao dịch, không gửi đơn và không tải tệp.
+  $("checkout-dialog").close();
+  $("success-dialog").showModal();
+});
+
+$("continue-shopping").onclick = () => {
+  $("success-dialog").close();
+  showPage("choose");
+};
+    // MỞ / ĐÓNG CỬA SỔ
+
+    $("cart-button").onclick = () => {
+      $("cart-message").textContent = "";
+      $("cart-dialog").showModal();
+    };
+
+    document.querySelectorAll("dialog .close").forEach(button => {
+      button.onclick = () => button.closest("dialog").close();
+    });
+
+    // KHỞI TẠO
+    renderCart();
+    syncControls();
+    refreshPreview(true);
+  </script>
+</body>
+</html>
