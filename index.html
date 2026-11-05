@@ -968,6 +968,36 @@
 .size-table tbody th {
   font-weight: 700;
 }
+@media (max-width: 800px) {
+  .slider:has(#image-scale) {
+    display: none;
+  }
+}
+@media (max-width: 800px) {
+  #home {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #home .hero-art {
+    order: 0;
+    width: 100%;
+  }
+
+  #home .hero-copy {
+    order: 1;
+    width: 100%;
+  }
+}
+.primary {
+  justify-content: center;
+  gap: 0;
+}
+
+/* Ẩn các span trang trí còn trống sau khi xóa mũi tên */
+.primary span[aria-hidden="true"] {
+  display: none;
+}
   </style>
 </head>
 
@@ -1013,7 +1043,7 @@
         </p>
 
         <button id="start-button" class="primary">
-          Bắt đầu thiết kế <span aria-hidden="true">↗</span>
+          Bắt đầu thiết kế <span aria-hidden="true"></span>
         </button>
 
         <p class="small">
@@ -1044,14 +1074,14 @@
       <div class="products">
         <button class="product" data-type="short">
           <img src="images/phong-truoc.png" alt="Áo phông trắng">
-          <strong>Áo phông ↗</strong>
+          <strong>Áo phông </strong>
           <p>Thoải mái cho mọi ngày</p>
           <p class="product-card-price">259.000 ₫</p>
         </button>
 
         <button class="product" data-type="long">
           <img src="images/dai-truoc.png" alt="Áo dài tay trắng">
-          <strong>Áo dài tay ↗</strong>
+          <strong>Áo dài tay </strong>
           <p>Ấm áp và đầy cá tính</p>
           <p class="product-card-price">279.000 ₫</p>
         </button>
@@ -1060,7 +1090,7 @@
       <p class="small">In cả hai mặt: cộng thêm 40.000 ₫/áo.</p>
 
       <button id="home-button" class="text-button">
-        ← Về trang đầu
+         Về trang đầu
       </button>
     </section>
 
@@ -1113,9 +1143,7 @@
             </button>
           </div>
 
-          <p class="preview-tip">
-            Kéo hình in để di chuyển hoặc dùng các thanh điều chỉnh.
-          </p>
+    
         </div>
 
         <aside class="customizer">
@@ -1218,13 +1246,13 @@
           <p id="feedback" class="message" role="status"></p>
 
           <button id="add-cart" class="primary full" disabled>
-            Thêm vào giỏ <span aria-hidden="true">↗</span>
+            Thêm vào giỏ <span aria-hidden="true"></span>
           </button>
 
           <button id="download-preview"
                   class="text-button full"
                   disabled>
-            Tải ảnh thiết kế mặt đang xem ↓
+            Tải ảnh thiết kế mặt đang xem 
           </button>
 
           <p class="small">
@@ -1238,43 +1266,10 @@
 
   <footer>
     <span>EVERM — Wear what you love.</span>
-
-    <button id="info-button" class="text-button">
-      Thông tin & chính sách
-    </button>
   </footer>
 
   <!-- THÔNG TIN SHOP -->
-  <dialog id="info-dialog">
-    <button type="button" class="close" aria-label="Đóng">×</button>
 
-    <p class="eyebrow">HELLO, BELOVED</p>
-    <h2>Một chút về EVERM</h2>
-
-    <p>
-      Không gian để bạn biến hình ảnh yêu thích thành chiếc áo
-      mang dấu ấn của riêng mình.
-    </p>
-
-    <h3>Thông tin & chính sách</h3>
-
-    <p>
-      Áo phông: 259.000 ₫. Áo dài tay: 279.000 ₫.
-      In cả hai mặt: cộng thêm 40.000 ₫/áo.
-      Phí vận chuyển: 30.000 ₫/đơn.
-    </p>
-
-    <p>
-      Chủ shop cần cập nhật thông tin liên hệ, chất liệu,
-      thời gian giao hàng và chính sách đổi trả/bảo hành
-      trước khi nhận đơn.
-    </p>
-
-    <p>
-      Website hiện tạo bản thiết kế và tệp đơn hàng.
-      Chưa gửi đơn, gửi email hoặc xác nhận thanh toán tự động.
-    </p>
-  </dialog>
 
   <!-- GIỎ HÀNG -->
   <dialog id="cart-dialog">
@@ -1287,7 +1282,7 @@
     <p id="cart-message" class="message" role="status"></p>
 
     <button id="checkout-button" class="primary full" disabled>
-      Tiến hành thanh toán <span aria-hidden="true">→</span>
+      Tiến hành thanh toán <span aria-hidden="true"></span>
     </button>
 
     <button id="export-button" class="text-button full" disabled>
@@ -2037,81 +2032,190 @@ function renderSizes() {
     };
 
     // KÉO HÌNH IN
-    function pointerPosition(event) {
-      const rect = canvas.getBoundingClientRect();
+// KÉO VÀ PHÓNG TO / THU NHỎ HÌNH IN
+const activePointers = new Map();
+let imageGesture = null;
 
-      return {
-        x: (event.clientX - rect.left) * 1000 / rect.width,
-        y: (event.clientY - rect.top) * 1000 / rect.height
-      };
+function pointerPosition(event) {
+  const rect = canvas.getBoundingClientRect();
+
+  return {
+    x: (event.clientX - rect.left) * 1000 / rect.width,
+    y: (event.clientY - rect.top) * 1000 / rect.height
+  };
+}
+
+function gesturePosition() {
+  const points = [...activePointers.values()];
+
+  if (points.length >= 2) {
+    const first = points[0];
+    const second = points[1];
+
+    return {
+      x: (first.x + second.x) / 2,
+      y: (first.y + second.y) / 2,
+      distance: Math.hypot(
+        second.x - first.x,
+        second.y - first.y
+      )
+    };
+  }
+
+  return {
+    x: points[0].x,
+    y: points[0].y,
+    distance: 0
+  };
+}
+
+function beginImageGesture() {
+  const image = state.images[state.side];
+
+  if (!image || !activePointers.size) {
+    imageGesture = null;
+    return;
+  }
+
+  const position = gesturePosition();
+
+  imageGesture = {
+    side: state.side,
+    pointerX: position.x,
+    pointerY: position.y,
+    distance: position.distance,
+    centerX: 500 + image.x * 5,
+    centerY: 500 + image.y * 5,
+    scale: image.scale
+  };
+}
+
+canvas.addEventListener("pointerdown", event => {
+  if (event.pointerType === "mouse" && event.button !== 0) {
+    return;
+  }
+
+  const image = state.images[state.side];
+
+  if (!image || uploadPending) return;
+
+  // Cho ngón thứ hai tham gia ngay cả khi canvas đang vẽ lại.
+  if (!activePointers.size && !previewReady) return;
+
+  if (activePointers.size >= 2) return;
+
+  event.preventDefault();
+
+  activePointers.set(
+    event.pointerId,
+    pointerPosition(event)
+  );
+
+  canvas.setPointerCapture(event.pointerId);
+  canvas.classList.add("dragging");
+
+  beginImageGesture();
+});
+
+canvas.addEventListener("pointermove", event => {
+  if (!activePointers.has(event.pointerId)) return;
+
+  event.preventDefault();
+
+  activePointers.set(
+    event.pointerId,
+    pointerPosition(event)
+  );
+
+  if (!imageGesture) return;
+
+  const image = state.images[imageGesture.side];
+  if (!image) return;
+
+  const position = gesturePosition();
+
+  let scaleRatio = 1;
+
+  // Hai ngón: đổi kích thước theo khoảng cách giữa hai ngón.
+  if (
+    activePointers.size === 2 &&
+    imageGesture.distance > 0
+  ) {
+    const requestedScale =
+      imageGesture.scale *
+      position.distance /
+      imageGesture.distance;
+
+    // Giữ cùng giới hạn với thanh kích thước hiện tại.
+    const minScale = Number($("image-scale").min);
+    const maxScale = Number($("image-scale").max);
+
+    image.scale = clamp(
+      requestedScale,
+      minScale,
+      maxScale
+    );
+
+    scaleRatio = image.scale / imageGesture.scale;
+  }
+
+  // Phóng to quanh vị trí hai ngón tay.
+  // Một ngón thì chỉ di chuyển hình.
+  const centerX =
+    position.x +
+    (imageGesture.centerX - imageGesture.pointerX) *
+    scaleRatio;
+
+  const centerY =
+    position.y +
+    (imageGesture.centerY - imageGesture.pointerY) *
+    scaleRatio;
+
+  image.x = clamp((centerX - 500) / 5, -100, 100);
+  image.y = clamp((centerY - 500) / 5, -100, 100);
+
+  syncControls();
+  refreshPreview();
+});
+
+function finishPointer(event) {
+  if (!activePointers.has(event.pointerId)) return;
+
+  activePointers.delete(event.pointerId);
+
+  if (canvas.hasPointerCapture(event.pointerId)) {
+    canvas.releasePointerCapture(event.pointerId);
+  }
+
+  if (activePointers.size) {
+    // Nhấc một ngón lên: tiếp tục kéo bằng ngón còn lại.
+    beginImageGesture();
+  } else {
+    imageGesture = null;
+    canvas.classList.remove("dragging");
+  }
+}
+
+canvas.addEventListener("pointerup", finishPointer);
+canvas.addEventListener("pointercancel", finishPointer);
+canvas.addEventListener("lostpointercapture", finishPointer);
+
+// Giữ hàm này vì các phần chuyển trang / đổi mặt áo đang gọi nó.
+function stopDrag() {
+  const pointerIds = [...activePointers.keys()];
+
+  activePointers.clear();
+  imageGesture = null;
+  drag = null;
+
+  canvas.classList.remove("dragging");
+
+  pointerIds.forEach(pointerId => {
+    if (canvas.hasPointerCapture(pointerId)) {
+      canvas.releasePointerCapture(pointerId);
     }
-
-    canvas.addEventListener("pointerdown", event => {
-      if (!event.isPrimary || event.button !== 0) return;
-
-      const image = state.images[state.side];
-
-      if (!image || !previewReady || uploadPending) return;
-
-      // Cho phép kéo từ vùng xem trước khi đã có hình in.
-      const point = pointerPosition(event);
-
-      event.preventDefault();
-
-      drag = {
-        pointerId: event.pointerId,
-        side: state.side,
-        startX: point.x,
-        startY: point.y,
-        imageX: image.x,
-        imageY: image.y
-      };
-
-      canvas.setPointerCapture(event.pointerId);
-      canvas.classList.add("dragging");
-    });
-
-    canvas.addEventListener("pointermove", event => {
-      if (!drag || drag.pointerId !== event.pointerId) return;
-
-      const image = state.images[drag.side];
-      if (!image) return;
-
-      const point = pointerPosition(event);
-
-      image.x = clamp(
-        drag.imageX + (point.x - drag.startX) / 5,
-        -100,
-        100
-      );
-
-      image.y = clamp(
-        drag.imageY + (point.y - drag.startY) / 5,
-        -100,
-        100
-      );
-
-      syncControls();
-      refreshPreview();
-    });
-
-    function stopDrag() {
-      const previous = drag;
-      drag = null;
-
-      canvas.classList.remove("dragging");
-
-      if (
-        previous &&
-        canvas.hasPointerCapture(previous.pointerId)
-      ) {
-        canvas.releasePointerCapture(previous.pointerId);
-      }
-    }
-
-    canvas.addEventListener("pointerup", stopDrag);
-    canvas.addEventListener("pointercancel", stopDrag);
-    canvas.addEventListener("lostpointercapture", stopDrag);
+  });
+}
 
     // TẢI TỆP
     function downloadBlob(blob, filename) {
@@ -2562,9 +2666,6 @@ function renderSizes() {
     });
 
     // MỞ / ĐÓNG CỬA SỔ
-    $("info-button").onclick = () => {
-      $("info-dialog").showModal();
-    };
 
     $("cart-button").onclick = () => {
       $("cart-message").textContent = "";
