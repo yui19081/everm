@@ -1417,20 +1417,33 @@
           <p id="checkout-message" class="message" role="status"></p>
 
           <button id="save-order" type="submit" class="primary full">
-            Lưu đơn hàng <span aria-hidden="true">↓</span>
+            Thanh toán
           </button>
-
-          <p class="small">
-            Nút này tải tệp đơn hàng về thiết bị.
-            Đơn chưa được gửi đến EVERM
-            và thanh toán chưa được xác nhận.
-          </p>
         </section>
       </div>
     </form>
   </dialog>
 
   <!-- CHỈ JAVASCRIPT BÊN TRONG SCRIPT -->
+   <dialog id="success-dialog">
+  <button type="button" class="close" aria-label="Đóng">×</button>
+
+  <div style="text-align: center; padding: 20px 0;">
+    <div style="font-size: 48px; color: #515b39;">✓</div>
+
+    <h2 style="padding: 0; margin-top: 15px;">
+      Thanh toán thành công
+    </h2>
+
+    <p>Cảm ơn bạn đã lựa chọn EVERM.</p>
+
+    <button id="continue-shopping"
+            type="button"
+            class="primary full">
+      Tiếp tục mua sắm
+    </button>
+  </div>
+</dialog>
   <script>
     const $ = id => document.getElementById(id);
 
@@ -2584,87 +2597,48 @@ function stopDrag() {
         $(id).setCustomValidity("");
       });
     });
+// THANH TOÁN MÔ PHỎNG
+$("checkout-form").addEventListener("submit", event => {
+  event.preventDefault();
 
-    $("checkout-form").addEventListener("submit", event => {
-      event.preventDefault();
+  if (!checkoutCart.length) return;
 
-      if (!checkoutCart.length) return;
+  customerFields.forEach(id => {
+    const input = $(id);
 
-      customerFields.forEach(id => {
-        const input = $(id);
-        input.value = input.value.trim();
+    input.value = input.value.trim();
+    input.setCustomValidity(
+      input.value ? "" : "Vui lòng điền thông tin này."
+    );
+  });
 
-        input.setCustomValidity(
-          input.value ? "" : "Vui lòng điền thông tin này."
-        );
-      });
+  const phone = $("customer-phone");
+  const digits = phone.value.replace(/\D/g, "");
 
-      const phone = $("customer-phone");
-      const phoneDigits = phone.value.replace(/\D/g, "");
+  if (
+    phone.value &&
+    (
+      !/^[+0-9() .-]+$/.test(phone.value) ||
+      digits.length < 9 ||
+      digits.length > 15
+    )
+  ) {
+    phone.setCustomValidity(
+      "Vui lòng nhập số điện thoại hợp lệ."
+    );
+  }
 
-      if (
-        phone.value &&
-        (
-          !/^[+0-9() .-]+$/.test(phone.value) ||
-          phoneDigits.length < 9 ||
-          phoneDigits.length > 15
-        )
-      ) {
-        phone.setCustomValidity("Vui lòng nhập số điện thoại hợp lệ.");
-      }
+  if (!event.currentTarget.reportValidity()) return;
 
-      if (!event.currentTarget.reportValidity()) return;
+  // Không tạo giao dịch, không gửi đơn và không tải tệp.
+  $("checkout-dialog").close();
+  $("success-dialog").showModal();
+});
 
-      const paymentMethod = new FormData(
-        event.currentTarget
-      ).get("paymentMethod");
-
-      if (paymentMethod === "bank" && !qrAvailable) {
-        $("checkout-message").textContent =
-          "Chưa có QR hợp lệ. Kiểm tra ảnh QR hoặc chọn COD.";
-        return;
-      }
-
-      const now = new Date();
-      const orderId =
-        "EVERM-" + now.getTime().toString(36).toUpperCase();
-
-      const order = {
-        shop: "EVERM",
-        orderId,
-        createdAt: now.toISOString(),
-        status: "local-draft",
-        paymentStatus: "unconfirmed",
-        currency: "VND",
-
-        customer: {
-          fullName: $("customer-name").value,
-          phone: $("customer-phone").value,
-          email: $("customer-email").value,
-          address: $("customer-address").value
-        },
-
-        paymentMethod,
-        subtotal: subtotal(checkoutCart),
-        shippingFee: SHIPPING_FEE,
-        total: subtotal(checkoutCart) + SHIPPING_FEE,
-        shirtImages: shirtPaths,
-        items: pricedItems(checkoutCart)
-      };
-
-      downloadBlob(
-        new Blob(
-          [JSON.stringify(order, null, 2)],
-          { type: "application/json" }
-        ),
-        orderId + ".json"
-      );
-
-      $("checkout-message").textContent =
-        "Đã tạo tệp đơn hàng để tải xuống. " +
-        "Đơn chưa được gửi đến EVERM; thanh toán chưa được xác nhận.";
-    });
-
+$("continue-shopping").onclick = () => {
+  $("success-dialog").close();
+  showPage("choose");
+};
     // MỞ / ĐÓNG CỬA SỔ
 
     $("cart-button").onclick = () => {
